@@ -1,4 +1,3 @@
-import './App.css'
 import TipCalcCard from './Components/TipCalc';
 import { makeStyles, useMediaQuery } from '@material-ui/core';
 
