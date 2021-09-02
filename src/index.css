@@ -14,8 +14,11 @@ code {
 }
 
 .MuiInputBase-input{
-  padding: 1rem !important;
+  padding: .7rem !important;
   background:#f3f8fb !important;
   border-radius: .2rem;
   text-align: right;
+}
+.MuiInputBase-root{
+  width:100%
 }
