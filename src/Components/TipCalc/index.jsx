@@ -105,6 +105,7 @@ const TipCalc = (props) => {
                                     variant="filled"
                                     placeholder="142.55"
                                     inputProps={{ min: 0, className: classes.textField }}
+                                    pattern="[0-9]*"
                                 />
                                 <span style={{ position: "absolute", top: "0", left: "12px", bottom: "0", display: "flex", alignItems: "center" }}>
                                     <Icon />
@@ -152,7 +153,7 @@ const TipCalc = (props) => {
                                 <Grid item xs={6} md={4} style={{ margin: "0 auto" }}>
                                     <div className={classes.buttonContainer} style={{width:"100%"}}>
                                         <InputBase type="number" inputProps={{ className: classes.Input }}
-                                            placeholder="Custom"
+                                            placeholder="Custom"  pattern="[0-9]*"
                                         />
                                     </div>
                                 </Grid>
@@ -168,6 +169,7 @@ const TipCalc = (props) => {
                                     variant="filled"
                                     placeholder="0"
                                     inputProps={{ min: 0, className: classes.textField }}
+                                    pattern="[0-9]*"
                                 />
                                 <span style={{ position: "absolute", top: "0", left: "12px", bottom: "0", display: "flex", alignItems: "center" }}>
                                     <Icon />
