@@ -13,7 +13,7 @@ const useStyles = makeStyles({
 })
 
 function App() {
-  const mobile = useMediaQuery('(max-width:960px')
+  const mobile = useMediaQuery('(max-width:960px)')
   const classes = useStyles();
   return (
     <div>
