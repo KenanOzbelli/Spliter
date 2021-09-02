@@ -89,7 +89,7 @@ const useStyles = makeStyles({
 const TipCalc = (props) => {
     const classes = useStyles();
     return (
-        <Card className={props.smView ? classes.smCard : classes.card}>
+        <Card className={(props.smView ? classes.smCard : classes.card)}>
             <CardContent>
                 <Grid container className={classes.container}>
                     <Grid item xs={12} sm={12} md={6} className={classes.inputSection} style={props.smView ? { padding: "0" } : null}>
@@ -113,7 +113,7 @@ const TipCalc = (props) => {
                             </Paper>
                         </Grid>
                         <Grid>
-                            <h3 style={{ color: "#9c9c9b", margin: "1rem 0" }}>Select a Tip %</h3>
+                            <h3 style={{ color: "#9c9c9b", margin: "1rem 0 .3rem 0" }}>Select a Tip %</h3>
                             <Grid container spacing={2}>
                                 <Grid item xs={6} md={4} style={{ margin: "0 auto" }}>
                                     <div className={classes.buttonContainer}>
