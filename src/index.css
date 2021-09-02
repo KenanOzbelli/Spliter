@@ -12,3 +12,10 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.MuiInputBase-input{
+  padding: 1rem !important;
+  background:#f3f8fb !important;
+  border-radius: .2rem;
+  text-align: right;
+}
