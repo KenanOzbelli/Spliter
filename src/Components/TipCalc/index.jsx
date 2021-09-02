@@ -58,8 +58,14 @@ const useStyles = makeStyles({
         fontWeight: "bold",
         '&:focus': {
             borderColor: "1px solid #9fe8df",
-            boxShadow: "#9fe8df 0 0 0 0.2rem"
-        }
+            boxShadow: "#9fe8df 0 0 0 0.2rem",
+            borderRadius: ".2rem"
+        },
+        '&:active': {
+            borderColor: "1px solid #9fe8df",
+            boxShadow: "#9fe8df 0 0 0 0.2rem",
+            borderRadius: ".2rem"
+        },
     },
     Input: {
         fontWeight: "bold !important",
@@ -69,8 +75,14 @@ const useStyles = makeStyles({
         width:"100% !important",
         '&:focus': {
             borderColor: "1px solid #9fe8df",
-            boxShadow: "#9fe8df 0 0 0 0.2rem"
-        }
+            boxShadow: "#9fe8df 0 0 0 0.2rem",
+            borderRadius: ".2rem"
+        },
+        '&:active': {
+            borderColor: "1px solid #9fe8df",
+            boxShadow: "#9fe8df 0 0 0 0.2rem",
+            borderRadius: ".2rem"
+        },
     },
     tipButtons: {
         background: "#00464b",

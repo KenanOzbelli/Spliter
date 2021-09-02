@@ -15,10 +15,10 @@ code {
 
 .MuiInputBase-input{
   padding: .7rem !important;
-  background:#f3f8fb !important;
-  border-radius: .2rem;
   text-align: right;
 }
 .MuiInputBase-root{
-  width:100%
+  width:100%;
+  background:#f3f8fb !important;
+  border-radius: .2rem;
 }
