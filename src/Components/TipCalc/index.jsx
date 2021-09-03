@@ -147,7 +147,6 @@ const TipCalc = (props) => {
                 } else {
                     SetCustomTip("")
                     SetTip("")
-                    SetTotalAmount("0.00")
                 }
                 break;
             case "numberPeople":
@@ -167,7 +166,7 @@ const TipCalc = (props) => {
     }
 
     useEffect(() => {
-        if (numberPeople >= 1 &&  BillAmount >= 1 &&( Tip >= 1 || CustomTip >= 1)) {
+        if (numberPeople >= 1 &&  BillAmount >= 1) {
             const timeoutId = setTimeout(() => { calcAmount() }, 500);
             return () => clearTimeout(timeoutId);
         }
@@ -189,6 +188,7 @@ const TipCalc = (props) => {
             SetTotalAmount(JSON.parse(numberPeople) + JSON.parse(BillAmount) + JSON.parse(Tip))
             return
         }
+            SetTotalAmount(JSON.parse(numberPeople) + JSON.parse(BillAmount))
     }
 
     return (
@@ -203,6 +203,7 @@ const TipCalc = (props) => {
                         <Grid>
                             <Paper style={{marginBottom: "1rem", position: "relative"}}>
                                 <InputBase
+                                    className={`${numberPeopleError? classes.error : classes.textField }`}
                                     type="number"
                                     name="BillAmount"
                                     value={BillAmount}
@@ -269,7 +270,7 @@ const TipCalc = (props) => {
                             <h5 style={{ color: "#ffb7a6", margin: "0", position: "absolute", top: "0", right: "0", display:`${numberPeopleError? "Block": "None"}` }}>Can't Be Zero</h5>
                             <Paper style={{ marginBottom: "1rem", position: "relative" }}>
                                 <InputBase
-                                    className={classes.textField}
+                                    className= {`${numberPeopleError? classes.error : classes.textField }`}
                                     id="numberPeople"
                                     type="number"
                                     name="numberPeople"
