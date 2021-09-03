@@ -146,6 +146,7 @@ const TipCalc = (props) => {
                     SetTip("");
                 } else {
                     SetCustomTip("")
+                    SetTip("")
                     SetTotalAmount("0.00")
                 }
                 break;
@@ -182,9 +183,11 @@ const TipCalc = (props) => {
     const calcAmount = () => {
         if(CustomTip){
             SetTotalAmount(JSON.parse(numberPeople) + JSON.parse(BillAmount) + JSON.parse(CustomTip))
+            return
         }
         if(Tip >= 1){
             SetTotalAmount(JSON.parse(numberPeople) + JSON.parse(BillAmount) + JSON.parse(Tip))
+            return
         }
     }
 
@@ -193,8 +196,8 @@ const TipCalc = (props) => {
             <CardContent>
                 <Grid container className={classes.container}>
                     <Grid item xs={12} sm={12} md={6} className={classes.inputSection} style={props.smView ? { padding: "0" } : null}>
-                    <Grid style={{ position: "relative" }}>
-                        <h4 style={{ color: "#9c9c9b", margin: "2rem 0 2px 0 5" }}>Bill</h4>
+                    <Grid style={{ position: "relative", margin:"0" }}>
+                        <h4 style={{ color: "#9c9c9b", margin: " 0 0 5px 0", }}>Bill</h4>
                         <h4 style={{ color: "#ffb7a6", margin: "0", position: "absolute", top: "0", right: "0", display:`${BillError? "Block": "None"}` }}>Can't Be Zero</h4>
                     </Grid>
                         <Grid>
