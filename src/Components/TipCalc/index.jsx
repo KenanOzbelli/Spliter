@@ -203,7 +203,7 @@ const TipCalc = (props) => {
                         <Grid>
                             <Paper style={{marginBottom: "1rem", position: "relative"}}>
                                 <InputBase
-                                    className={`${numberPeopleError? classes.error : classes.textField }`}
+                                    className={`${BillError? classes.error : classes.textField }`}
                                     type="number"
                                     name="BillAmount"
                                     value={BillAmount}
