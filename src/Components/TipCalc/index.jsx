@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Card from '@material-ui/core/Card';
-import Icon from '../Icon';
+import IconDollar from '../Icon/IconDollar';
+import IconPerson from '../Icon/IconPerson';
 import { makeStyles } from '@material-ui/styles';
 import { CardContent, Grid, Paper, Button, InputBase } from '@material-ui/core';
+
 
 const useStyles = makeStyles({
     card: {
@@ -57,37 +59,34 @@ const useStyles = makeStyles({
         fontSize: "20px",
         fontWeight: "bold",
         '&:focus': {
-            borderColor: "1px solid #9fe8df",
             boxShadow: "#9fe8df 0 0 0 0.2rem",
             borderRadius: ".2rem"
         },
         '&:active': {
-            borderColor: "1px solid #9fe8df",
             boxShadow: "#9fe8df 0 0 0 0.2rem",
             borderRadius: ".2rem"
-        },
+        }
     },
-    Input: {
+    customInput: {
         fontWeight: "bold !important",
         padding: ".61rem !important",
         fontSize: "1.5rem",
         color: "#17494f",
-        width:"100% !important",
+        width: "100% !important",
         '&:focus': {
-            borderColor: "1px solid #9fe8df",
             boxShadow: "#9fe8df 0 0 0 0.2rem",
             borderRadius: ".2rem"
         },
         '&:active': {
-            borderColor: "1px solid #9fe8df",
             boxShadow: "#9fe8df 0 0 0 0.2rem",
             borderRadius: ".2rem"
-        },
+        }
     },
     tipButtons: {
         background: "#00464b",
         color: "#ffff",
         width: "100%",
+        fontSize:"1.3em",
         '&:hover': {
             color: "#00464b",
             background: "#26c1ad",
@@ -95,96 +94,191 @@ const useStyles = makeStyles({
     },
     buttonContainer: {
         margin: "10px 0"
+    },
+    error:{
+        width: "100%",
+        color: "#17494f",
+        fontSize: "20px",
+        fontWeight: "bold",
+        boxShadow: "#ffb7a6 0 0 0 0.2rem",
+        borderRadius: ".2rem"
     }
 })
 
 const TipCalc = (props) => {
     const classes = useStyles();
+    const [BillAmount, SetBillAmount] = useState("");
+    const [BillError, SetBillError] = useState(false);
+    const [CustomTip, SetCustomTip] = useState("");
+    const [Tip, SetTip] = useState("");
+    const [numberPeople, SetNumberPeople] = useState("");
+    const [numberPeopleError, SetNumberPeopleError] = useState(false);
+    const [tipAmount, SetTipAmount] = useState("0.00");
+    const [totalAmount, SetTotalAmount] = useState("0.00");
+
+    const handleChange = (event) => {
+        const { name, value } = event.target;
+
+        const checkValue = (value) => {
+            if (value > 0 && value !== "[^0-9]") {
+                return true
+            } else {
+                return false
+            }
+        }
+
+        switch (name) {
+            case "BillAmount":
+                if (checkValue(value)) {
+                    SetBillAmount(value)
+                    SetBillError(false)
+                } else {
+                    SetBillAmount("")
+                    SetBillError(true)
+                    SetTotalAmount("0.00")
+                    SetTipAmount("0.00")
+                }
+                break;
+            case "customTip":
+                document.querySelectorAll(".TipButtonBackground").forEach(button => {button.style =""})
+                if (checkValue(value)) {
+                    SetCustomTip(value)
+                    SetTip("");
+                } else {
+                    SetCustomTip("")
+                    SetTotalAmount("0.00")
+                }
+                break;
+            case "numberPeople":
+                if (checkValue(value)) {
+                    SetNumberPeople(value)
+                    SetNumberPeopleError(false)
+                } else {
+                    SetNumberPeople("")
+                    SetNumberPeopleError(true)
+                    SetTotalAmount("0.00")
+                    SetTipAmount("0.00")
+                }
+                break;
+            default:
+                break;
+        }
+    }
+
+    useEffect(() => {
+        if (numberPeople >= 1 &&  BillAmount >= 1 &&( Tip >= 1 || CustomTip >= 1)) {
+            const timeoutId = setTimeout(() => { calcAmount() }, 500);
+            return () => clearTimeout(timeoutId);
+        }
+    });
+
+    const setTipAmount = (amount) => {
+        document.querySelectorAll(".TipButtonBackground").forEach(button => {button.style =""})
+        document.querySelector(`#TipButton${amount}`).style="color:#00464b; background:#26c1ad;";
+        SetTip(amount)
+        SetCustomTip("")
+    }
+
+    const calcAmount = () => {
+        if(CustomTip){
+            SetTotalAmount(JSON.parse(numberPeople) + JSON.parse(BillAmount) + JSON.parse(CustomTip))
+        }
+        if(Tip >= 1){
+            SetTotalAmount(JSON.parse(numberPeople) + JSON.parse(BillAmount) + JSON.parse(Tip))
+        }
+    }
+
     return (
-        <Card className={(props.smView ? classes.smCard : classes.card)}>
+        <Card className={props.smView ? classes.smCard : classes.card}>
             <CardContent>
                 <Grid container className={classes.container}>
                     <Grid item xs={12} sm={12} md={6} className={classes.inputSection} style={props.smView ? { padding: "0" } : null}>
+                    <Grid style={{ position: "relative" }}>
+                        <h4 style={{ color: "#9c9c9b", margin: "2rem 0 2px 0 5" }}>Bill</h4>
+                        <h4 style={{ color: "#ffb7a6", margin: "0", position: "absolute", top: "0", right: "0", display:`${BillError? "Block": "None"}` }}>Can't Be Zero</h4>
+                    </Grid>
                         <Grid>
-                            <h3 style={{ color: "#9c9c9b", margin: "0" }}>Bill</h3>
-                        </Grid>
-                        <Grid>
-                            <Paper style={{ marginBottom: "1rem", position: "relative" }}>
+                            <Paper style={{marginBottom: "1rem", position: "relative"}}>
                                 <InputBase
-                                    className={classes.textField}
-                                    id="BillAmount"
                                     type="number"
+                                    name="BillAmount"
+                                    value={BillAmount}
+                                    onChange={handleChange}
                                     variant="filled"
-                                    placeholder="142.55"
-                                    inputProps={{ min: 0, className: classes.textField }}
+                                    placeholder="0"
                                     pattern="[0-9]*"
+                                    inputProps={{ min: 0, className: `${BillError? classes.error : classes.textField}` }}
                                 />
                                 <span style={{ position: "absolute", top: "0", left: "12px", bottom: "0", display: "flex", alignItems: "center" }}>
-                                    <Icon />
+                                    <IconDollar />
                                 </span>
                             </Paper>
                         </Grid>
                         <Grid>
-                            <h3 style={{ color: "#9c9c9b", margin: "1rem 0 .3rem 0" }}>Select a Tip %</h3>
+                            <h3 style={{ color: "#9c9c9b", margin: "1rem 0 .3rem 0" }}>Select Tip %</h3>
                             <Grid container spacing={2}>
                                 <Grid item xs={6} md={4} style={{ margin: "0 auto" }}>
                                     <div className={classes.buttonContainer}>
-                                        <Button size="medium" className={classes.tipButtons} value={.10}>
-                                            <h2 style={{ margin: "0 auto" }}>10%</h2>
+                                        <Button id="TipButton10" size="medium" className={`${classes.tipButtons} TipButtonBackground`} onClick={() => setTipAmount(10)}>
+                                           10%
                                         </Button>
                                     </div>
                                 </Grid>
                                 <Grid item xs={6} md={4} style={{ margin: "0 auto" }}>
                                     <div className={classes.buttonContainer}>
-                                        <Button size="medium" className={classes.tipButtons} value={.15}>
-                                            <h2 style={{ margin: "0 auto" }}>15%</h2>
+                                        <Button id="TipButton15" size="medium" className={`${classes.tipButtons} TipButtonBackground`} onClick={() => {setTipAmount(15)}}>
+                                            15%
                                         </Button>
                                     </div>
                                 </Grid>
                                 <Grid item xs={6} md={4} style={{ margin: "0 auto" }}>
                                     <div className={classes.buttonContainer}>
-                                        <Button size="medium" className={classes.tipButtons} value={.2}>
-                                            <h2 style={{ margin: "0 auto" }}>20%</h2>
+                                        <Button id="TipButton20" size="medium" className={`${classes.tipButtons} TipButtonBackground`} onClick={() => {setTipAmount(20)}}>
+                                            20%
                                         </Button>
                                     </div>
                                 </Grid>
                                 <Grid item xs={6} md={4} style={{ margin: "0 auto" }}>
                                     <div className={classes.buttonContainer}>
-                                        <Button size="medium" className={classes.tipButtons} value={.25}>
-                                            <h2 style={{ margin: "0 auto" }}>25%</h2>
+                                        <Button id="TipButton25" size="medium" className={`${classes.tipButtons} TipButtonBackground`} onClick={() => {setTipAmount(25)}}>
+                                            25%
                                         </Button>
                                     </div>
                                 </Grid>
                                 <Grid item xs={6} md={4} style={{ margin: "0 auto" }}>
                                     <div className={classes.buttonContainer}>
-                                        <Button size="medium" className={classes.tipButtons} value={.5}>
-                                            <h2 style={{ margin: "0 auto" }}>50%</h2>
+                                        <Button id="TipButton50" size="medium" className={`${classes.tipButtons} TipButtonBackground`} onClick={() => {setTipAmount(50)}}>
+                                            50%
                                         </Button>
                                     </div>
                                 </Grid>
                                 <Grid item xs={6} md={4} style={{ margin: "0 auto" }}>
-                                    <div className={classes.buttonContainer} style={{width:"100%"}}>
-                                        <InputBase type="number" inputProps={{ className: classes.Input }}
-                                            placeholder="Custom"  pattern="[0-9]*"
+                                    <div className={classes.buttonContainer} style={{ width: "100%" }}>
+                                        <InputBase id="customTip" type="number" inputProps={{ className: classes.customInput }}
+                                            placeholder="Custom" pattern="[0-9]*" name="customTip" onChange={handleChange} value={CustomTip}
                                         />
                                     </div>
                                 </Grid>
                             </Grid>
                         </Grid>
-                        <Grid>
-                            <h3 style={{ color: "#9c9c9b", margin: "2rem 0 2px 0" }}>Number of People</h3>
+                        <Grid style={{ position: "relative" }}>
+                            <h5 style={{ color: "#9c9c9b", margin: "2rem 0 2px 0" }}>Number of People</h5>
+                            <h5 style={{ color: "#ffb7a6", margin: "0", position: "absolute", top: "0", right: "0", display:`${numberPeopleError? "Block": "None"}` }}>Can't Be Zero</h5>
                             <Paper style={{ marginBottom: "1rem", position: "relative" }}>
                                 <InputBase
                                     className={classes.textField}
                                     id="numberPeople"
                                     type="number"
+                                    name="numberPeople"
                                     variant="filled"
                                     placeholder="0"
-                                    inputProps={{ min: 0, className: classes.textField }}
+                                    inputProps={{ min: 0, className: `${numberPeopleError? classes.error : classes.textField }`}}
                                     pattern="[0-9]*"
+                                    onChange={handleChange}
+                                    value={numberPeople}
                                 />
                                 <span style={{ position: "absolute", top: "0", left: "12px", bottom: "0", display: "flex", alignItems: "center" }}>
-                                    <Icon />
+                                    <IconPerson />
                                 </span>
                             </Paper>
                         </Grid>
@@ -199,7 +293,7 @@ const TipCalc = (props) => {
                                     </div>
                                 </Grid>
                                 <Grid item xs={6} className={classes.OutputRightSection}>
-                                    <h2 id="TipAmount">$0.00</h2>
+                                    <h2 id="TipAmount">${tipAmount}</h2>
                                 </Grid>
                             </Grid>
                             <Grid container>
@@ -210,7 +304,7 @@ const TipCalc = (props) => {
                                     </div>
                                 </Grid>
                                 <Grid item xs={6} className={classes.OutputRightSection}>
-                                    <h2 id="TotalAmount">$0.00</h2>
+                                    <h2 id="TotalAmount">${totalAmount}</h2>
                                 </Grid>
                             </Grid>
                             <Button size="large" style={props.smView ? { marginTop: "2rem" } : { marginTop: "10rem" }} className={classes.button}>Reset</Button>
