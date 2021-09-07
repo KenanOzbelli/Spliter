@@ -212,6 +212,7 @@ const TipCalc = (props) => {
         SetNumberPeopleError(false);
         SetTipAmount("0.00");
         SetTotalAmount("0.00");
+        document.querySelectorAll(".TipButtonBackground").forEach(button => {button.style =""})
     }
 
     return (
