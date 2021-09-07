@@ -5,7 +5,6 @@ import IconPerson from '../Icon/IconPerson';
 import { makeStyles } from '@material-ui/styles';
 import { CardContent, Grid, Paper, Button, InputBase } from '@material-ui/core';
 
-
 const useStyles = makeStyles({
     card: {
         maxWidth: 1000,
