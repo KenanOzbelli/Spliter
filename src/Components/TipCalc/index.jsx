@@ -166,7 +166,7 @@ const TipCalc = (props) => {
     }
 
     useEffect(() => {
-        if (numberPeople >= 1 &&  BillAmount >= 1) {
+        if (numberPeople >= 1 ||  BillAmount >= 1) {
             const timeoutId = setTimeout(() => { calcAmount() }, 500);
             return () => clearTimeout(timeoutId);
         }
@@ -180,15 +180,27 @@ const TipCalc = (props) => {
     }
 
     const calcAmount = () => {
-        if(CustomTip){
-            SetTotalAmount(JSON.parse(numberPeople) + JSON.parse(BillAmount) + JSON.parse(CustomTip))
-            return
+        BillAmount<= 0?SetBillError(true):SetBillError(false)
+        numberPeople<= 0?SetNumberPeopleError(true):SetNumberPeopleError(false);
+        
+        if(BillAmount >= 1 && numberPeople >= 1){
+            if(Tip >= 1){
+               let tipVal = (JSON.parse(BillAmount) * (JSON.parse(Tip) / 100));
+
+               SetTipAmount((tipVal / JSON.parse(numberPeople)).toFixed(2))
+               SetTotalAmount(((tipVal + JSON.parse(BillAmount)) / JSON.parse(numberPeople)).toFixed(2))
+            }else if(CustomTip >=1){
+                let tipVal = (JSON.parse(BillAmount) * (JSON.parse(CustomTip) / 100));
+
+                SetTipAmount((tipVal / JSON.parse(numberPeople)).toFixed(2))
+                SetTotalAmount(((tipVal + JSON.parse(BillAmount)) / JSON.parse(numberPeople)).toFixed(2))
+            }else{
+                SetTotalAmount((JSON.parse(BillAmount) / JSON.parse(numberPeople)).toFixed(2))
+         
+                SetTipAmount("0.00")
+            }
         }
-        if(Tip >= 1){
-            SetTotalAmount(JSON.parse(numberPeople) + JSON.parse(BillAmount) + JSON.parse(Tip))
-            return
-        }
-            SetTotalAmount(JSON.parse(numberPeople) + JSON.parse(BillAmount))
+
     }
 
     return (
