@@ -150,7 +150,7 @@ const TipCalc = (props) => {
                 }
                 break;
             case "numberPeople":
-                if (checkValue(value)) {
+                if (checkValue(value) && value % 1 === 0 ) {
                     SetNumberPeople(value)
                     SetNumberPeopleError(false)
                 } else {
@@ -182,7 +182,7 @@ const TipCalc = (props) => {
     const calcAmount = () => {
         BillAmount<= 0?SetBillError(true):SetBillError(false)
         numberPeople<= 0?SetNumberPeopleError(true):SetNumberPeopleError(false);
-        
+
         if(BillAmount >= 1 && numberPeople >= 1){
             if(Tip >= 1){
                let tipVal = (JSON.parse(BillAmount) * (JSON.parse(Tip) / 100));
@@ -201,6 +201,17 @@ const TipCalc = (props) => {
             }
         }
 
+    }
+
+    const resetCalc = () => {
+        SetBillAmount("");
+        SetBillError(false);
+        SetCustomTip("");
+        SetTip("");
+        SetNumberPeople("")
+        SetNumberPeopleError(false);
+        SetTipAmount("0.00");
+        SetTotalAmount("0.00");
     }
 
     return (
@@ -323,7 +334,7 @@ const TipCalc = (props) => {
                                     <h2 id="TotalAmount">${totalAmount}</h2>
                                 </Grid>
                             </Grid>
-                            <Button size="large" style={props.smView ? { marginTop: "2rem" } : { marginTop: "10rem" }} className={classes.button}>Reset</Button>
+                            <Button size="large" style={props.smView ? { marginTop: "2rem" } : { marginTop: "10rem" }} className={classes.button} onClick={() => {resetCalc()}}>Reset</Button>
                         </Paper>
                     </Grid>
                 </Grid>
