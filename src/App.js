@@ -21,7 +21,6 @@ function App() {
       <div className={mobile?null:classes.Container}>
         <TipCalcCard smView={mobile}/>
         <h3 style={{textAlign:"center"}}>&copy; KCC</h3>
-       <img src="..\..\..\assets\images\SpliterImage.png" alt="playing" />
       </div>
     </div>
   );
