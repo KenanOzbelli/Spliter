@@ -1,6 +1,6 @@
 # Spliter App
 
-![alt text](https://lh3.googleusercontent.com/qtk8mebzkT7WjUSltkf0WWsTVbEiH73Y-B9aOSaoFnCIhvVzMHnoF_bXd3IfK6lRkMV_mI75vkYMZQHClP4OFd3BvW2-J7JJtGlWJLINhnBrbSD0IoJTvSUqRM0hOxowqOPs4V3qlDXVWfLTqPDIcD7ZZT07uWoeHOpBK6P0xV0EHHkuZVN-bPcYqiZnNRlKgIOy31Bz5JYQgFv6zI9Cd4LMcIJwpvhiMgJ6Q3obUaTyYUyIqJdvnu5Cv6uhzxtgGsXrRiOuhArpxMSGMgTpNCfh19ttEIrHFNjYFWDZUzKDPJppkrdjR1LeNqxwzcgcFcWn6f4opjDZh2IeNyhJpmW07I1UnSAQ_PgmRx6pS9k-NmUzm3t2YWOeBI1RXYVgKtLg0lXZoRm6dLuqyJorkh3GTj6lRlnPrTxrHr9WX7XWwUpcd3q7ULQ7QtyZorlYUVTvEvoyLm1z5tuXX3ZhpISL4PM08-68DlE_I8qF6LudSh1FA9g-kqLt6EAfjXFsoLYBzdb-tmSao5m-5gGyyhCNTYiTWhwHvyW8jBbWEBduohwtc7HXuSqSCNK6d0CwoGUXnMpTjzVdpZY-vCQ6OOB29n6DEc_D0-2PFL3Dz2bpZ8uNT-lapmxmqs_ILZ3Pix8XfotNCLYZFoV487U4X8CgVrMzxmWJz_cuDRy6ycX1NhRWiyK5Yuj3HGYCTzGnRErG507IH8FS6cqLdyFN7vzD=w1394-h733-no?authuser=0)
+![alt text](https://i.postimg.cc/xYDzN6nG/Screenshot-2021-09-07-185120.png)
 
 ## This app helps user be able to split their tips with 1 or more people and divides the total amount per person so you don't have to do the calculation on our own.
 
